@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/Xoyk23/node-hw01#readme",
   "dependencies": {
-    "commander": "^7.2.0"
+    "commander": "^7.2.0",
+    "eslint": "^7.25.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
