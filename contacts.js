@@ -13,9 +13,11 @@ function getContactById(contactId) {
   fs.readFile(contactsPath)
     .then((data) => {
       const contacts = JSON.parse(data);
-      const contact = contacts.find((contact) => contact.id == contactId);
-      // console.log(typeof contact.id);
-      // console.log(typeof contactId);
+      const contact = contacts.find(
+        (contact) => contact.id === Number(contactId)
+      );
+      console.log(typeof contact.id);
+      console.log(typeof contactId);
       console.table(contact);
     })
     .catch((err) => console.log(err.message));
@@ -26,10 +28,13 @@ function removeContact(contactId) {
     .then((data) => {
       const contacts = JSON.parse(data);
       const contactsFiltered = contacts.filter(
-        (contact) => contact.id != contactId
+        (contact) => contact.id !== Number(contactId)
       );
+      if (contactsFiltered.length === contacts.length) {
+        console.log(`Contact with ID ${contactId} don't exist!`);
+        return;
+      }
       fs.writeFile(contactsPath, JSON.stringify(contactsFiltered, null, "\t"));
-      console.log("Removed");
     })
     .catch((err) => console.log(err.message));
 }
@@ -41,7 +46,6 @@ function addContact(name, email, phone) {
       const id = Date.now();
       contacts.push({ id: id, name: name, email: email, phone: phone });
       fs.writeFile(contactsPath, JSON.stringify(contacts, null, "\t"));
-      console.log("Added");
     })
     .catch((err) => console.log(err.message));
 }
